@@ -47,7 +47,7 @@ if ($width == "640") {
 		gravity=>"South", y=>'25',
 	);
 } else {
-	die "Dimensions didn't match.\n";
+	die "Dimensions didn't match. Must be 640 px wide or 480 px high.\n";
 }
 
 
