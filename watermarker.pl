@@ -8,22 +8,22 @@ use warnings;
 my $no_of_args = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
 if ($no_of_args != 1) {
   die "Usage: $0 path/to/directory/\n";
-} elsif ($dir ~= m{/$}) {
+}
 
 my $dir = chomp($ARGV[0]);
-$dir ~= s{/$}{};
+$dir =~ s{/$}{};
 unless (-d $dir ) {
 	die "Path given doesn't lead to a directory.\n";
 }
 
 
 # make directory to put watermarked images in
-if (-e $dir/watermarked/ ) {
+my $destination = "$dir/"."watermarked";
+if (-e $destination ) {
 	die "Looks like you already have a watermarked/ directory within $dir. Delete it and try again.\n";
 } else {
-	my $destination = "$dir/"."watermarked"
-	mkdir "$destination", 0777; or die "Couldn't make new directory: $!\n";
-	print "Made new directory $destination.\n"
+	mkdir "$destination", 0777 or die "Couldn't make new directory: $!\n";
+	print "Made new directory $destination.\n";
 }
 
 
