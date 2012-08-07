@@ -10,20 +10,22 @@ if ($no_of_args != 1) {
   die "Usage: $0 path/to/directory/\n";
 }
 
-my $dir = chomp($ARGV[0]);
-$dir =~ s{/$}{};
+my $dir = $ARGV[0];
 unless (-d $dir ) {
 	die "Path given doesn't lead to a directory.\n";
+} else {
+	chomp $dir;
+	$dir =~ s{/$}{};
 }
 
 
 # make directory to put watermarked images in
-my $destination = "$dir/"."watermarked";
+my $destination = "$dir/watermarked";
 if (-e $destination ) {
-	die "Looks like you already have a watermarked/ directory within $dir. Delete it and try again.\n";
+	die "Already watermarked/ directory in $dir/. Delete it and try again.\n";
 } else {
 	mkdir "$destination", 0777 or die "Couldn't make new directory: $!\n";
-	print "Made new directory $destination.\n";
+	print "Created new directory $destination/.\n";
 }
 
 
