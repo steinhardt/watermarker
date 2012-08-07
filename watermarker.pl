@@ -37,6 +37,13 @@ foreach $file (@files) { # TODO array @files should be stripped of any non-JPG f
 }
 
 
+# checks and defines logo to be used for watermarking
+$logo_foo = "logo_100px.png"; # $logocheck so-named to avoid duplicate variables later on
+unless (-e $logo_foo) {
+	die "Cannot read file $logo_foo: $!\n";
+}
+
+
 # subroutine &watermark_image
 sub watermark_image {
 	my $photo = Image::Magick->new; # "creates" new image object
@@ -44,10 +51,6 @@ sub watermark_image {
 
 	$photo->Read($_[0]); # reads photograph from $file, passed to sub as $_[0]
 
-	$logocheck = "logo_100px.png"; # $logocheck so-named to avoid duplicate variables later on
-	unless (-e $logocheck) {
-		die "Cannot read logo file.\n";
-	}
 	$logo->Read($logocheck);
 
 	# determines image orientation (e.g. portrait) from dimensions
