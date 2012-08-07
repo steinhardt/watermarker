@@ -49,7 +49,7 @@ sub watermark_image {
 	my $photo = Image::Magick->new; # "creates" new image object
 	my $logo = Image::Magick->new;  # "creates" new image object
 
-	$photo->Read($_[0]); # reads photograph from $file, passed to sub as $_[0]
+	$photo->Read($_[0]);    # reads photograph from $file, passed to sub as $_[0]
 	$logo->Read($logo_foo); # reads logo from $logo_foo; defines it as $logo
 
 	($width, $height) = $photo->Get('width','height'); # used later to determine image orientation
@@ -75,7 +75,11 @@ sub watermark_image {
 		warn "Dimensions didn't match. Must be 640 px wide or 480 px high.\n";
 	}
 
-	$photo->Write("finalimage.jpg"); # TODO save watermarked image in watermarked/ dir, same name as source file - fail if file already exists.
+	my $photo_new = "$destination"."/"."$photo";
+	$photo->Write("$photo_new") or warn "Couldn't write file $photo_new: $!\n"; # TODO save watermarked image in watermarked/ dir, same name as source file - fail if file already exists.
+
+	undef $photo; # destroys image stored in $photo
+	undef $logo;  # destroys image stored in $logo
 }
 
 
