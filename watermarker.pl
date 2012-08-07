@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+use Find::File;
 use Image::Magick;
 use warnings;
 
@@ -29,12 +30,8 @@ if (-e $destination ) {
 }
 
 
-# repeats subroutine for all files in $dir
-@files = <$dir>;
-foreach $file (@files) { # TODO array @files should be stripped of any non-JPG files. Error "Could not find any .jpg files in directory.\n" if no files after strip.
-	die "Noone's written this bit yet!\n";
-	# &watermark_image($file);
-}
+# prepares and runs subroutine &watermark_image
+find( { preprocess => sub{ return grep { -v .jpg$ } @_ }, wanted => \&watermark_image }, $dir);
 
 
 # checks and defines logo to be used for watermarking
