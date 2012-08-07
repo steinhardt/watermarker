@@ -4,10 +4,14 @@ use Image::Magick;
 use warnings;
 
 
-# checks for single command line argument
-$arguments = $#ARGV + 1;
+# checks arguments
+$arguments = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
 if ($arguments != 1) {
-  die "Usage: $0 path/to/file\n";
+  die "Usage: $0 path/to/directory/\n";
+}
+
+if ($ARGV[0] ~= m{/$}) {
+	die "Argument didn't look like a directory. Should have '/' on the end.";
 }
 
 
