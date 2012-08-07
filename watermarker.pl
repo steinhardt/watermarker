@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use Find::File;
+use File::Find;
 use Image::Magick;
 use warnings;
 
