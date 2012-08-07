@@ -5,13 +5,21 @@ use warnings;
 
 
 # checks arguments
-$arguments = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
-if ($arguments != 1) {
+my $no_of_args = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
+my $dir = $ARGV[0];
+
+if ($no_of_args != 1) {
   die "Usage: $0 path/to/directory/\n";
+} elsif ($dir ~= m{/$}) {
+	die "Argument didn't look like a directory. Should have '/' on the end.\n";
 }
 
-if ($ARGV[0] ~= m{/$}) {
-	die "Argument didn't look like a directory. Should have '/' on the end.";
+
+# repeats subroutine for all files in $dir
+@files = <$dir>;
+foreach $file (@files) {
+	die "Noone's written this bit yet!\n";
+	# &watermark_image($file);
 }
 
 
