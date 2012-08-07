@@ -72,3 +72,4 @@ exit;
 
 # TODO Make dir `watermarked` in source dir if it doesn't exist already.
 # TODO Save watermarked image with same name as source in new dir `watermarked` - fail if file already exists.
+# TODO array @files should be stripped of any non-JPG files. Error "Could not find any .jpg files in directory.\n" if no files after strip.
