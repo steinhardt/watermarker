@@ -6,12 +6,14 @@ use warnings;
 
 # checks arguments
 my $no_of_args = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
-my $dir = chomp($ARGV[0]);
-
 if ($no_of_args != 1) {
   die "Usage: $0 path/to/directory/\n";
 } elsif ($dir ~= m{/$}) {
-	die "Argument didn't look like a directory. Should have '/' on the end.\n";
+
+my $dir = chomp($ARGV[0]);
+$dir ~= s{/$}{};
+unless (-d $dir ) {
+	die "Path given doesn't lead to a directory.\n";
 }
 
 
