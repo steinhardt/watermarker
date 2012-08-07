@@ -31,7 +31,8 @@ if (-e $destination ) {
 
 
 # prepares and runs subroutine &watermark_image
-find( { preprocess => sub{ return grep { -v .jpg$ } @_ }, wanted => \&watermark_image }, $dir);
+my @dirs = ("$dir");
+find( \&watermark_image, @dirs );
 
 
 # checks and defines logo to be used for watermarking
