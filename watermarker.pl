@@ -6,12 +6,22 @@ use warnings;
 
 # checks arguments
 my $no_of_args = $#ARGV + 1; # Otherwise we'd be counting zeros, no?
-my $dir = $ARGV[0];
+my $dir = chomp($ARGV[0]);
 
 if ($no_of_args != 1) {
   die "Usage: $0 path/to/directory/\n";
 } elsif ($dir ~= m{/$}) {
 	die "Argument didn't look like a directory. Should have '/' on the end.\n";
+}
+
+
+# make directory to put watermarked images in
+if (-e $dir/watermarked/ ) {
+	die "Looks like you already have a watermarked/ directory within $dir. Delete it and try again.\n";
+} else {
+	my $destination = "$dir/"."watermarked"
+	mkdir "$destination", 0777; or die "Couldn't make new directory: $!\n";
+	print "Made new directory $destination.\n"
 }
 
 
